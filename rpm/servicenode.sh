@@ -97,8 +97,7 @@ sudo rm -r /home/$_user/.ipfs
 ipfs init
 
 _maxstorage="18GB"
-sudo setcap CAP_NET_BIND_SERVICE=+eip /usr/sbin/ipfs
-ipfs config Addresses.Gateway /ip4/0.0.0.0/tcp/80
+
 ipfs config Datastore.StorageMax $_maxstorage
 ipfs config --json Swarm.ConnMgr.LowWater 400
 ipfs config --json Swarm.ConnMgr.HighWater 600
