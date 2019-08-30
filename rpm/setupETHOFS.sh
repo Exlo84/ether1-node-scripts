@@ -108,8 +108,6 @@ if [ $_nodetype = "gatewaynode" ] ; then
 fi
 if [ $_nodetype = "masternode" ] ; then
   _maxstorage="38GB"
-  sudo setcap CAP_NET_BIND_SERVICE=+eip /usr/sbin/ipfs
-  ipfs config Addresses.Gateway /ip4/0.0.0.0/tcp/80
 fi
 
 cat > /tmp/ipfs.service << EOL
