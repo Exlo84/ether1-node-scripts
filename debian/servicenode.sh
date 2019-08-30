@@ -98,7 +98,7 @@ sudo rm -r $HOME/.ipfs
 sudo rm -r /home/$_user/.ipfs
 ipfs init
 
-_maxstorage="18GB"
+_maxstorage="16GB"
 
 ipfs config Datastore.StorageMax $_maxstorage
 ipfs config --json Swarm.ConnMgr.LowWater 400
