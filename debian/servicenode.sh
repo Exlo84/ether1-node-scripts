@@ -57,10 +57,10 @@ sudo systemctl enable ether1node && sudo systemctl stop ether1node && sudo syste
 systemctl status ether1node --no-pager --full
 
 echo '**************************'
-echo 'Node Setup Complete....Deploying IPFS'
+echo 'Servicenode Setup Complete....Deploying IPFS'
 echo '**************************'
 
-cd $HOME
+cd /home/$_user
 wget https://github.com/Ether1Project/Ether-1-GN-Binaries/releases/download/1.2.1/ipfs.tar.gz
 tar -xzf ipfs.tar.gz
 chmod +x ipfs
@@ -84,7 +84,7 @@ Group=$_user
 Type=simple
 Restart=always
 
-ExecStart=/usr/sbin/ipfs daemon --migrate --enable-namesys-pubsub  --enable-gc --routing=dhtclient
+ExecStart=/usr/sbin/ipfs daemon --migrate --enable-namesys-pubsub --enable-gc --routing=dhtclient
 
 [Install]
 WantedBy=default.target
@@ -93,11 +93,14 @@ EOL
 sudo systemctl stop ipfs
 sudo \mv /tmp/ipfs.service /etc/systemd/system
 sudo \mv ipfs /usr/sbin/
-sudo rm -r $HOME/.ipfs
-ipfs init
 ipfs bootstrap rm --all
-_maxstorage="18GB"
+sudo rm -r $HOME/.ipfs
+sudo rm -r /home/$_user/.ipfs
+ipfs init
 
+_maxstorage="18GB"
+sudo setcap CAP_NET_BIND_SERVICE=+eip /usr/sbin/ipfs
+ipfs config Addresses.Gateway /ip4/0.0.0.0/tcp/80
 ipfs config Datastore.StorageMax $_maxstorage
 ipfs config --json Swarm.ConnMgr.LowWater 400
 ipfs config --json Swarm.ConnMgr.HighWater 600
@@ -111,7 +114,8 @@ ipfs bootstrap add /ip4/45.77.170.137/tcp/4001/ipfs/QmTZsBNb7dfJJmwuAdXBjKZ7ZH6X
 ipfs bootstrap add /ip4/51.38.131.241/tcp/4001/ipfs/Qmf4oLLYAhkXv95ucVvUihnWPR66Knqzt9ee3CU6UoJKVu
 ipfs bootstrap add /ip4/51.77.150.202/tcp/4001/ipfs/QmUEy4ScCYCgP6GRfVgrLDqXfLXnUUh4eKaS1fDgaCoGQJ
 ipfs bootstrap add /ip4/142.44.246.43/tcp/4001/ipfs/QmPW8zExrEeno85Us3H1bk68rBo7N7WEhdpU9pC9wjQxgu
-sudo chown -R $_user:$_user $HOME/.ipfs
+sudo mv $HOME/.ipfs /home/$_user/
+sudo chown -R $_user:$_user /home/$_user/.ipfs
 
 cat > /tmp/swarm.key << EOL
 /key/swarm/psk/1.0.0/
@@ -119,7 +123,7 @@ cat > /tmp/swarm.key << EOL
 38307a74b2176d0054ffa2864e31ee22d0fc6c3266dd856f6d41bddf14e2ad63
 EOL
 
-sudo \mv /tmp/swarm.key $HOME/.ipfs
+sudo \mv /tmp/swarm.key /home/$_user/.ipfs
 sudo systemctl daemon-reload
 sudo systemctl enable ipfs && systemctl start ipfs
 sudo systemctl restart ipfs
