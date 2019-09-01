@@ -113,6 +113,7 @@ ExecStart=/usr/sbin/ipfs daemon --migrate --enable-namesys-pubsub --enable-gc
 WantedBy=default.target
 EOL
 
+sudo systemctl stop ipfs
 sudo \mv /tmp/ipfs.service /etc/systemd/system
 sudo \mv ipfs /usr/sbin/
 
