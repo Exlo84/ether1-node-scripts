@@ -51,20 +51,20 @@ sudo rm /etc/systemd/system/ethoFS.service
 sudo rm $HOME/.ether1/ethofs/swarm.key
 
 echo '**************************'
-echo 'Installing Ether-1 Node binary'
+echo 'Installing ETHO Protocol Node binary'
 echo '**************************'
 # Download node binary
-wget https://github.com/Ether1Project/Ether1/releases/download/V1.5.2/etho-linux-1.5.2.tar.gz
-tar -xzf etho-linux-1.5.2.tar.gz
+wget https://github.com/Ether1Project/Ether1/releases/download/V1.5.3/etho-linux-1.5.3.tar.gz
+tar -xzf etho-linux-1.5.3.tar.gz
 # Make node executable
 chmod +x geth
 # Remove and cleanup
-rm etho-linux-1.5.2.tar.gz
+rm etho-linux-1.5.3.tar.gz
 # Move Binaries
 sudo \mv geth /usr/sbin/
 
 echo '**************************'
-echo 'Initiating Kepler (Geth, IPFS & ethoFS)'
+echo 'Initiating Atlas (Geth, IPFS & ethoFS)'
 echo '**************************'
 
 if [ $_nodetype = "gatewaynode" ] ; then
@@ -75,7 +75,7 @@ if [ $_nodetype = "gatewaynode" ] ; then
   sleep 7
   cat > /tmp/ether1node.service << EOL
   [Unit]
-  Description=Ether1 Gateway Node
+  Description=ETHO Gateway Node
   After=network.target
 
   [Service]
@@ -105,7 +105,7 @@ if [ $_nodetype = "masternode" ] ; then
   sleep 7
   cat > /tmp/ether1node.service << EOL
   [Unit]
-  Description=Ether1 Masternode
+  Description=ETHO Masternode
   After=network.target
 
   [Service]
@@ -135,7 +135,7 @@ if [ $_nodetype = "servicenode" ] ; then
   sleep 7
   cat > /tmp/ether1node.service << EOL
   [Unit]
-  Description=Ether1 Service Node
+  Description=ETHO Service Node
   After=network.target
 
   [Service]
