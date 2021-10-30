@@ -55,7 +55,7 @@ echo 'Installing ETHO Protocol Node binary'
 echo '**************************'
 # Download node binary
 wget https://github.com/Ether1Project/Ether1/releases/download/V1.5.3/etho-linux-1.5.3.tar.gz
-tar -xzf etho-linux-1.5.3.tar.gz
+tar -xvf etho-linux-1.5.3.tar.gz
 # Make node executable
 chmod +x geth
 # Remove and cleanup
