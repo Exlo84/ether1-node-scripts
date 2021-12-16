@@ -54,7 +54,7 @@ echo '**************************'
 echo 'Installing Etho Protocol Node binary'
 echo '**************************'
 # Download node binary
-https://github.com/Ether1Project/Ether1/releases/download/V1.6.0/etho-linux-1.6.0.tar.gz
+wget https://github.com/Ether1Project/Ether1/releases/download/V1.6.0/etho-linux-1.6.0.tar.gz
 tar -xvf etho-linux-1.6.0.tar.gz
 rm etho-linux-1.6.0.tar.gz
 # Make node executable
